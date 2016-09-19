@@ -62,6 +62,8 @@ function smarty_function_get_article($params, &$smarty){
 		return getPrice($conn, $id, $params['tax']);
 	}else if($return === 7){ //Tax
 		return getTax($conn, $id);
+	}else if($return === 8){ //All
+		return getAll($conn, $id);
 	}else{
 		return 'Unknown Return';
 	}
@@ -160,6 +162,22 @@ function getTaxID($conn, $id){
 	return $stm->fetchAll()[0][0];
 }
 
+function getAll($conn, $id){
+	return [
+		'name'=>getName($conn, $id),
+		'link'=>getLink($id),
+		'image'=>getImg($conn, $id),
+		'supplier'=>getSupplier($conn, $id),
+		'sales'=>getPseudosales($conn, $id),
+		'category'=>getCategory($conn, $id),
+		'price'=>getPrice($conn, $id, false),
+		'tax'=>getTax($conn, $id),
+		'price-tax'=>getPrice($conn, $id, true),
+	];
+}
+
+
+
 function getArticleID($conn, $index, $type){
 	if($type === 0){
 		$stm = $conn->prepare('SELECT id FROM s_articles ORDER BY changetime DESC');
@@ -223,6 +241,8 @@ function initParams($params){
 			$params['return'] = 6;
 		}else if(strtolower($params['return']) === 'tax') {
 			$params['return'] = 7;
+		}else if(strtolower($params['return']) === 'all') {
+			$params['return'] = 8;
 		}else{
 			$params['return'] = 0;
 		}
