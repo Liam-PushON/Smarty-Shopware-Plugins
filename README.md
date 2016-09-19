@@ -29,7 +29,16 @@ Setting return to 'name' will return the articles name.
 Setting return to 'link' will return the url to the articles product page
 ###image
 Setting return to 'image' will return the src url for the articles thumbnail image
-
+###supplier
+Setting return to 'supplier' will return the articles supplier name
+###sales
+Setting return to 'sales' will return the number of sales
+###category
+Setting return to 'category' will return the articles category
+###price
+Setting return to 'price' will return the products price, also setting 'tax' to 'true' will return the items price including tax
+###tax
+Setting return to 'tax' will return the products tax value
 ##make_banner
 **DEPENDS ON SLICK JS**
 The make_banner function creates a product carousel banner using [slick js](http://kenwheeler.github.io/slick/)
@@ -61,14 +70,29 @@ AND
 ```
 return='name'  
 return='link'  
-return='image'
+return='image'  
+return='supplier'  
+return='sales'  
+return='catagory'  
+return='price'  
+return='tax'
 ```
 Note that this is converted into a numeric value so:  
 ```return=0 can be used in place of return='name'```  
 AND  
 ```return=1 can be used in place of return='link'```  
 AND  
-```return=2 can be used in place of return='image'```
+```return=2 can be used in place of return='image'```  
+AND    
+```return=3 can be used in place of return='supplier'```  
+AND    
+```return=4 OR return='pseudosales' can be used in place of return='sales'```  
+AND    
+```return=5 OR return='categories' can be used in place of return='category'```  
+AND    
+```return=6 can be used in place of return='price'```  
+AND    
+```return=7 can be used in place of return='tax'```
 ####index
 An integer greaater than 0 (> 0)
 ####id
