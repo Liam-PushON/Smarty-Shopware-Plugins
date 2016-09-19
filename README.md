@@ -64,11 +64,17 @@ return='link'
 return='image'
 ```
 Note that this is converted into a numeric value so
+
 ```return=0 can be used in place of return='name'```
+
 AND
+
 ```return=1 can be used in place of return='link'```
+
 AND
+
 ```return=2 can be used in place of return='image'```
+
 ####index
 An integer greaater than 0 (> 0)
 ####id
