@@ -94,7 +94,7 @@ AND
 AND    
 ```return=7 can be used in place of return='tax'```
 ####index
-An integer greaater than 0 (> 0)
+An integer greater than 0 (> 0)
 ####id
 The id of an article in the 's_articles' table.
 ####name
@@ -102,7 +102,7 @@ The name of an article in the 's_articles' table.
 
 ###make_banner
 ####amount
-An integer greaater than 0 (> 0)
+An integer greater than 0 (> 0)
 ####type
 ```
 type='top'  
