@@ -85,11 +85,8 @@ type='top'
 type='new'
 ```
 Note that this is converted into a numeric value so:
-
 ```type=0 can be used in place of type='top'```
-
 AND
-
 ```type=1 can be used in place of type='new'```
 
 
