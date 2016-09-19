@@ -36,3 +36,56 @@ The make_banner function creates a product carousel banner using [slick js](http
 ###Parameters
 The 'type' parameter allows the creation of two diffeent banners 'top, or 'new'. 'top' creates a banner listing top selling products. 'new' creates a banner listing the most recently updated and new products.
 The 'amount' parameter allows you to choose how many proucts will appear in the carousel.
+
+##Examples
+```
+*{make_banner type='top' amount=5}*
+*{make_banner type='new' amount=6}*
+*{get_article index=2 type='top' return='image'}*
+*{get_article id=24 return='name'}*
+*{get_article name='Cat' return='link'}*
+```
+
+##Valid Paramter Values
+###get_article
+####type
+```
+type='top'
+type='new'
+```
+Note that this is converted into a numeric value so
+```type=0 can be used in place of type='top'```
+AND
+```type=1 can be used in place of type='new'```
+####return
+```
+return='name'
+return='link'
+return='image'
+```
+Note that this is converted into a numeric value so
+```return=0 can be used in place of return='name'```
+AND
+```return=1 can be used in place of return='link'```
+AND
+```return=2 can be used in place of return='image'```
+####index
+An integer greaater than 0 (> 0)
+####id
+The id of an article in the 's_articles' table.
+####
+The name of an article in the 's_articles' table.
+
+###make_banner
+####amount
+An integer greaater than 0 (> 0)
+####type
+```
+type='top'
+type='new'
+```
+Note that this is converted into a numeric value so
+```type=0 can be used in place of type='top'```
+AND
+```type=1 can be used in place of type='new'```
+
