@@ -22,11 +22,18 @@
  */
 
 function smarty_function_get_article($params, &$smarty){
+	$dbdetails = getDatabaseDetails($smarty);
 	$params = initParams($params);
 	$type = $params['type'];
 	$return = $params['return'];
 	$index = $params['index'];
-	$conn = new PDO('mysql:host=localhost;dbname=shopwaredemo', 'shopware', 'root');
+
+	try {
+		$conn = new PDO($dbdetails['dsn'], $dbdetails['user'], $dbdetails['pass']);
+	} catch (PDOException $e) {
+		echo 'Connection failed: ' . $e->getMessage();
+	}
+
 	if(isset($params['id']) && isset($params['name'])){
 		unset($params['name']);
 	}
@@ -78,7 +85,11 @@ function getArticleID($conn, $index, $type){
 	}else{
 		return 'Unknown Type';
 	}
-	$stm->execute();
+	try {
+		$stm->execute();
+	}catch(PDOException $e){
+		echo 'Error: ' . $e->getMessage();
+	}
 	return $stm->fetchAll()[$index][0];
 }
 
@@ -129,6 +140,30 @@ function initParams($params){
 		$params['index'] = (int)$params['index'];
 	}
 	return $params;
+}
+
+
+function getDatabaseDetails($smarty){
+	$smarty->config_read_hidden = true;
+	if(file_exists('/smarty.conf')){
+		$smarty->configLoad('/smarty.conf', 'Database');
+	}else if(file_exists('smarty.conf')){
+		$smarty->configLoad('smarty.conf', 'Database');
+	}else if(file_exists('/engine/Library/Smarty/smarty.conf')){
+		$smarty->configLoad('/engine/Library/Smarty/smarty.conf', 'Database');
+	}else if(file_exists('/shopware/engine/Library/Smarty/smarty.conf')){
+		$smarty->configLoad('/shopware/engine/Library/Smarty/smarty.conf', 'Database');
+	}else{
+		echo 'No smarty.conf file found';
+	}
+	$smarty->config_read_hidden = true;
+
+	$host = $smarty->getConfigVars('host');
+	$db = $smarty->getConfigVars('db');
+	$user = $smarty->getConfigVars('user');
+	$pass = $smarty->getConfigVars('pass');
+	return ['dsn'=>'mysql:host='.$host.';dbname='.$db, 'user'=>$user, 'pass'=>$pass];
+
 }
 
 ?>
