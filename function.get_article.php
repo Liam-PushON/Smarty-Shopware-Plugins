@@ -15,6 +15,7 @@
  * - index			->				Index of data in id query (0 being the first member) (Not used when id is set) (defualt = 0)
  * - id				->				Id of a specified article (default = null)
  * - name			->				Used to get an id based on an items name in database
+ * - tax				->				Used when getting price, should tax be included (default = false)
  * -------------------------------------------------------------
  * Example usage:
  * {get_article index=2 type='top' return='image'}
@@ -51,6 +52,16 @@ function smarty_function_get_article($params, &$smarty){
 		return getLink($id);
 	}else if($return === 2){ //Image Link
 		return getImg($conn, $id);
+	}else if($return === 3){ //Supplier name
+		return getSupplier($conn, $id);
+	}else if($return === 4){ //Pseudosales
+		return getPseudosales($conn, $id);
+	}else if($return === 5){ //Categor(y/ies)
+		return getCategory($conn, $id);
+	}else if($return === 6){ //Price
+		return getPrice($conn, $id, $params['tax']);
+	}else if($return === 7){ //Tax
+		return getTax($conn, $id);
 	}else{
 		return 'Unknown Return';
 	}
@@ -73,6 +84,78 @@ function getLink($id){
 
 function getName($conn, $id){
 	$stm = $conn->prepare('SELECT `name` FROM s_articles WHERE id = '.$id);
+	$stm->execute();
+	return $stm->fetchAll()[0][0];
+}
+
+function getSupplier($conn, $id){
+	$stm = $conn->prepare('SELECT `name` FROM s_articles_supplier WHERE id = '.getSupplierID($conn, $id));
+	$stm->execute();
+	return $stm->fetchAll()[0][0];
+}
+function getSupplierID($conn, $id){
+	$stm = $conn->prepare('SELECT supplierID FROM s_articles WHERE id = '.$id);
+	$stm->execute();
+	return $stm->fetchAll()[0][0];
+}
+
+function getPseudosales($conn, $id){
+	$stm = $conn->prepare('SELECT pseudosales FROM s_articles WHERE id = '.$id);
+	$stm->execute();
+	return $stm->fetchAll()[0][0];
+}
+
+function getCategory($conn, $id){
+	$id = getCategoryID($conn, $id);
+	$category = "";
+	if(count($id) > 1){
+		foreach($id as $i){
+			$stm = $conn->prepare('SELECT description FROM s_categories WHERE id = '.$i[0]);
+			$stm->execute();
+			$category = $category . $stm->fetchAll()[0][0].", ";
+		}
+		return $category = substr($category, 0, ($category->length-2));
+	}else{
+		$stm = $conn->prepare('SELECT description FROM s_categories WHERE id = '.$id);
+		$stm->execute();
+		return $stm->fetchAll()[0][0];
+	}
+
+}
+function getCategoryID($conn, $id){
+	$stm = $conn->prepare('SELECT categoryID FROM s_articles_categories WHERE articleID = '.$id);
+	$stm->execute();
+	if($stm->rowCount() > 1){
+		return $stm->fetchAll();
+	}else{
+  		return $stm->fetchAll()[0][0];
+	}
+}
+
+function getPrice($conn, $id, $tax){
+	if(isset($tax)){
+		if($tax){
+			$tax = getTax($conn, $id);
+			$tax += 100.00;
+		}else{
+			$tax = 100.00;
+		}
+		$tax /= 100;
+		$stm = $conn->prepare('SELECT price FROM s_articles_prices WHERE articleID = '.$id);
+		$stm->execute();
+		return number_format(($stm->fetchAll()[0][0]*$tax), 2, '.', ',');
+	}
+	$stm = $conn->prepare('SELECT price FROM s_articles_prices WHERE articleID = '.$id);
+	$stm->execute();
+	return number_format($stm->fetchAll()[0][0], 2, '.', ',');
+}
+function getTax($conn, $id){
+	$stm = $conn->prepare('SELECT tax FROM s_core_tax WHERE id = '.getTaxID($conn, $id));
+	$stm->execute();
+	return $stm->fetchAll()[0][0];
+}
+function getTaxID($conn, $id){
+	$stm = $conn->prepare('SELECT taxID FROM s_articles WHERE id = '.$id);
 	$stm->execute();
 	return $stm->fetchAll()[0][0];
 }
@@ -130,18 +213,30 @@ function initParams($params){
 			$params['return'] = 1;
 		}else if(strtolower($params['return']) === 'image'){
 			$params['return'] = 2;
+		}else if(strtolower($params['return']) === 'supplier'){
+			$params['return'] = 3;
+		}else if(strtolower($params['return']) === 'sales' || strtolower($params['return']) === 'pseudosales'){
+			$params['return'] = 4;
+		}else if(strtolower($params['return']) === 'category' || strtolower($params['return']) === 'categories'){
+			$params['return'] = 5;
+		}else if(strtolower($params['return']) === 'price'){
+			$params['return'] = 6;
+		}else if(strtolower($params['return']) === 'tax') {
+			$params['return'] = 7;
 		}else{
 			$params['return'] = 0;
 		}
 	}
 
 	//**** INITIALISE INDEX ****//
-	if(!is_int($params['index'])){
-		$params['index'] = (int)$params['index'];
+	if(!is_int($params['index'])){$params['index'] = (int)$params['index'];
+	}
+	//**** INITIALISE INDEX ****//
+	if(!isset($params['tax'])){
+		$params['tax'] = false;
 	}
 	return $params;
 }
-
 
 function getDatabaseDetails($smarty){
 	$smarty->config_read_hidden = true;
