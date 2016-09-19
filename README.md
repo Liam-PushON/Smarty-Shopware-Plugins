@@ -39,6 +39,9 @@ Setting return to 'category' will return the articles category
 Setting return to 'price' will return the products price, also setting 'tax' to 'true' will return the items price including tax
 ###tax
 Setting return to 'tax' will return the products tax value
+###all
+Setting return to 'all' will return an array of all properties  
+['name', 'link', 'image', 'supplier', 'sales', 'categpry', 'price', 'tax', 'price-tax']
 ##make_banner
 **DEPENDS ON SLICK JS**
 The make_banner function creates a product carousel banner using [slick js](http://kenwheeler.github.io/slick/)
@@ -75,7 +78,8 @@ return='supplier'
 return='sales'  
 return='catagory'  
 return='price'  
-return='tax'
+return='tax'  
+return='all'
 ```
 Note that this is converted into a numeric value so:  
 ```return=0 can be used in place of return='name'```  
