@@ -50,24 +50,24 @@ The 'amount' parameter allows you to choose how many proucts will appear in the 
 ###get_article
 ####type
 ```
-type='top'
+type='top'  
 type='new'
 ```
 Note that this is converted into a numeric value so:
-```type=0 can be used in place of type='top'```
-AND
+```type=0 can be used in place of type='top'```  
+AND  
 ```type=1 can be used in place of type='new'```
 ####return
 ```
-return='name'
-return='link'
+return='name'  
+return='link'  
 return='image'
 ```
 Note that this is converted into a numeric value so:
-```return=0 can be used in place of return='name'```
-AND
-```return=1 can be used in place of return='link'```
-AND
+```return=0 can be used in place of return='name'```  
+AND  
+```return=1 can be used in place of return='link'```  
+AND  
 ```return=2 can be used in place of return='image'```
 ####index
 An integer greaater than 0 (> 0)
@@ -81,12 +81,12 @@ The name of an article in the 's_articles' table.
 An integer greaater than 0 (> 0)
 ####type
 ```
-type='top'
+type='top'  
 type='new'
 ```
-Note that this is converted into a numeric value so:
-```type=0 can be used in place of type='top'```
-AND
-```type=1 can be used in place of type='new'```
+Note that this is converted into a numeric value so:  
+```type=0 can be used in place of type='top'```  
+AND  
+```type=1 can be used in place of type='new'```  
 
 
