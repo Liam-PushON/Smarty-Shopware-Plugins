@@ -4,23 +4,23 @@ The get_article function grants the ability to pull specific articles (items) fr
 Currently there are 3 ways to select an article:
 ###Top & New Products
 The 'type' paramter allows you to grab the newest or highest selling items from your database, this can be combined with the 'index' parameter to grab specific items, i.e. the 3rd highest selling product;
-```*{get_article type='top' index=2}*```
+```{get_article type='top' index=2}```
 The 'type' parameter does not require the 'index' parameter howver without it, the function will only pull the topmost article from the database.
 ####Example Usage:
 You may choose to use this in a loop to grab multiple products:
 ```
-*{for $i=0 to 4}*
-    *<img src="{get_article type='top' index=$i return='image'}">*
-*{/for}*
+{for $i=0 to 4}
+   <img src="{get_article type='top' index=$i return='image'}">
+{/for}
 ```
 The above code will get images for the top 5 selling products
 ###Via ID
 The 'id' paramter can be used to grab a specific article using its id.
-```*{get_article id=48}*```
+```{get_article id=48}```
 This will bypass the need for the 'type' and 'index' parameters, if this is set they will be ignored
 ###Via Name
 The 'name' parameter can be used to grab a specific article using its name.
-```*{get_article name='foobar'}*```
+```{get_article name='foobar'}```
 ##Returned item
 The 'return' parameter controls what is returned by the funcion allowing different strings to be pulled.
 ###name
@@ -39,11 +39,11 @@ The 'amount' parameter allows you to choose how many proucts will appear in the 
 
 ##Examples
 ```
-*{make_banner type='top' amount=5}*
-*{make_banner type='new' amount=6}*
-*{get_article index=2 type='top' return='image'}*
-*{get_article id=24 return='name'}*
-*{get_article name='Cat' return='link'}*
+{make_banner type='top' amount=5}
+{make_banner type='new' amount=6}
+{get_article index=2 type='top' return='image'}
+{get_article id=24 return='name'}
+{get_article name='Cat' return='link'}
 ```
 
 ##Valid Paramter Values
