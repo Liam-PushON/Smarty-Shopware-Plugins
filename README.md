@@ -53,7 +53,7 @@ The 'amount' parameter allows you to choose how many proucts will appear in the 
 type='top'  
 type='new'
 ```
-Note that this is converted into a numeric value so:
+Note that this is converted into a numeric value so:  
 ```type=0 can be used in place of type='top'```  
 AND  
 ```type=1 can be used in place of type='new'```
@@ -63,7 +63,7 @@ return='name'
 return='link'  
 return='image'
 ```
-Note that this is converted into a numeric value so:
+Note that this is converted into a numeric value so:  
 ```return=0 can be used in place of return='name'```  
 AND  
 ```return=1 can be used in place of return='link'```  
@@ -73,7 +73,7 @@ AND
 An integer greaater than 0 (> 0)
 ####id
 The id of an article in the 's_articles' table.
-####
+####name
 The name of an article in the 's_articles' table.
 
 ###make_banner
