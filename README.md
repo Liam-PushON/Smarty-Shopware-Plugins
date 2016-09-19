@@ -53,7 +53,7 @@ The 'amount' parameter allows you to choose how many proucts will appear in the 
 type='top'
 type='new'
 ```
-Note that this is converted into a numeric value so
+Note that this is converted into a numeric value so:
 ```type=0 can be used in place of type='top'```
 AND
 ```type=1 can be used in place of type='new'```
@@ -84,8 +84,12 @@ An integer greaater than 0 (> 0)
 type='top'
 type='new'
 ```
-Note that this is converted into a numeric value so
+Note that this is converted into a numeric value so:
+
 ```type=0 can be used in place of type='top'```
+
 AND
+
 ```type=1 can be used in place of type='new'```
+
 
