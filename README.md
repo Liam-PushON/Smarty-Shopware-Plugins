@@ -8,9 +8,11 @@ The 'type' paramter allows you to grab the newest or highest selling items from 
 The 'type' parameter does not require the 'index' parameter howver without it, the function will only pull the topmost article from the database.
 ####Example Usage:
 You may choose to use this in a loop to grab multiple products:
+```
 *{for $i=0 to 4}*
     *<img src="{get_article type='top' index=$i return='image'}">*
 *{/for}*
+```
 The above code will get images for the top 5 selling products
 ###Via ID
 The 'id' paramter can be used to grab a specific article using its id.
